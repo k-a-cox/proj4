@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define NUM_THREADS 10
-#define NUMBER_LINES 100
+#define NUM_THREADS 1
+#define NUMBER_LINES 1000000
 #define MAX_LINE_SIZE 2005 //It seems the max line size is 2001, but that is only a guess
 
 pthread_mutex_t mutexsum;                       // mutex for line_sum
