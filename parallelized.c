@@ -54,7 +54,7 @@ void count_chunk(int id){
 		sum = 0;
 		for(j = 0; j < MAX_LINE_SIZE; j++){
 			theChar = char_array[i][j];
-			if(theChar == '\n')
+			if(theChar == '\0')
 				break;
 			sum += theChar;
 		}
