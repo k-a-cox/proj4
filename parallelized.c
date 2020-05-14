@@ -11,14 +11,15 @@ char char_array[NUMBER_LINES][MAX_LINE_SIZE];
 int line_sum[NUMBER_LINES - 1];
 
 void init_arrays(char* filename){
+	int i;
 	
-	for (int i = 0; i < NUMBER_LINES - 1; i++){
+	for (i = 0; i < NUMBER_LINES - 1; i++){
 		line_sum[i] = 0;
 	}
 	
 	//Read in the main file into char_array
-	FILE file = fopen(filename, "r");
-	for(int i = 0; i < NUMBER_LINES; i++) {
+	FILE* file = fopen(filename, "r");
+	for(i = 0; i < NUMBER_LINES; i++) {
 		fgets(char_array[i], MAX_LINE_SIZE - 1, file);
 		
 	}
@@ -37,9 +38,9 @@ void count_chunk(int id){
 	if (id == NUMBER_CHUNKS - 1) endLine = NUMBER_LINES;
 	
 	// Ready for parallelization
-	for(int i = startLine; i < endLine; i++) {
-		for(int j = 0; j < BIG_NUMBER; j++){
-			theChar = char_array[line][j];
+	for(i = startLine; i < endLine; i++) {
+		for(j = 0; j < MAX_LINE_SIZE; j++){
+			theChar = char_array[i][j];
 			if(theChar == '\n')
 				break;
 			sum += theChar;
@@ -48,7 +49,7 @@ void count_chunk(int id){
 	}
 	
 	// Critical Section
-	for(int i = startLine; i < endLine; i++) {
+	for(i = startLine; i < endLine; i++) {
 		if(i != 0) line_sum[i-1] -= local_line_sum[i];
 		if(i != NUMBER_LINES-1) line_sum[i] += local_line_sum[i];
 	}
