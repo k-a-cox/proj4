@@ -25,6 +25,7 @@ void init_arrays(char* filename){
 		printf("%d: %s", i, char_array[i]);
 	}
 	fclose(file);
+	printf("\n");
 }
 
 void count_chunk(int id){
@@ -39,7 +40,13 @@ void count_chunk(int id){
 	if (id == NUMBER_CHUNKS - 1) endLine = NUMBER_LINES;
 	
 	// Ready for parallelization
+
+	printf("ID: %d\n", id);
+	printf("Start line: %d\n", startLine);
+	printf("End line: %d\n", endLine - 1);
+
 	for(i = startLine; i < endLine; i++) {
+		sum = 0;
 		for(j = 0; j < MAX_LINE_SIZE; j++){
 			theChar = char_array[i][j];
 			if(theChar == '\n')
@@ -53,6 +60,7 @@ void count_chunk(int id){
 	for(i = startLine; i < endLine; i++) {
 		if(i != 0) line_sum[i-1] -= local_line_sum[i];
 		if(i != NUMBER_LINES-1) line_sum[i] += local_line_sum[i];
+		printf("\t%d: %d\n\n", i, local_line_sum[i]);
 	}
 }
 
