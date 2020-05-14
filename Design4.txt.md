@@ -16,7 +16,7 @@ All 3 attempts seem to work fine. We unfortunately waited a bit too last minute 
 The multiple methods seemed to run roughly equally well for the small scale (about 500 lines) tests we were able to conduct through the headnode.
 
 -----------------
-
+```
 Appendix 1: Small scale output
 
 0-1: 32923
@@ -118,10 +118,10 @@ Appendix 1: Small scale output
 96-97: -4460
 97-98: 1658
 98-99: 12984
-
+```
 
 Appendix 2: OpenMP
-
+```C
 #include <omp.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -229,9 +229,11 @@ main(int argc, char *argv[]){
 
 	print_results();
 }
+```
 
 Appendix 3: pthread
 
+```C
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -370,9 +372,10 @@ main(){
 	pthread_exit(NULL);
 
 }
-
+```
 Appendix 4: MPI
 
+```C
 #include <mpi.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -590,9 +593,10 @@ main(int argc, char *argv[]){
 	}
 	print_results();
 }
-
+```
 Appendix 6: Sample script for OpenMP
 
+```Bash
 #!/bin/bash
 
 #SBATCH --ntasks=1
@@ -613,4 +617,5 @@ Appendix 8: Sample script for MPI
 
 #!/bin/bash
 
-mpirun -npernode 1 mpi 
+mpirun -npernode 1 mpi
+```
