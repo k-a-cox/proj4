@@ -3,8 +3,8 @@
 #include <string.h>
 
 #define NUMBER_CHUNKS 1
-#define NUMBER_LINES 7
-#define MAX_LINE_SIZE 500000000 //Somehow we don't want to overflow on characters per line of main file
+#define NUMBER_LINES 500
+#define MAX_LINE_SIZE 2005 //It seems the max line size is 2001, but that is only a guess
 
 // Contains the output
 char char_array[NUMBER_LINES][MAX_LINE_SIZE];
@@ -27,7 +27,7 @@ void init_arrays(){
 		}
 		fgets(char_array[i], MAX_LINE_SIZE, file);
 		
-		printf("%d: %s", i, char_array[i]);
+		//printf("%d: %s", i, char_array[i]);
 	}
 	fclose(file);
 	printf("\n");
@@ -54,8 +54,10 @@ void count_chunk(int id){
 		sum = 0;
 		for(j = 0; j < MAX_LINE_SIZE; j++){
 			theChar = char_array[i][j];
-			if(theChar == '\0')
+			if(theChar == '\0'){
+				// printf("Length: %d\n",j); //Used to test how long to make each str
 				break;
+			}
 			sum += theChar;
 		}
 		local_line_sum[i - startLine] = sum;
@@ -65,7 +67,7 @@ void count_chunk(int id){
 	for(i = startLine; i < endLine; i++) {
 		if(i != 0) line_sum[i-1] -= local_line_sum[i-startLine];
 		if(i != NUMBER_LINES-1) line_sum[i] += local_line_sum[i-startLine];
-		printf("\t%d: %d\n", i, local_line_sum[i-startLine]);
+		// printf("\t%d: %d\n", i, local_line_sum[i-startLine]);
 	}
 
 	printf("\n");
