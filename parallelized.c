@@ -21,6 +21,10 @@ void init_arrays(){
 	FILE* file = fopen("~dan/625/wiki_dump.txt", "r");
 	// FILE* file = fopen("test_file.txt", "r");
 	for(i = 0; i < NUMBER_LINES; i++) {
+		if (file == NULL) {
+			printf("File not Found\n");
+			exit(-1);
+		}
 		fgets(char_array[i], MAX_LINE_SIZE, file);
 		
 		printf("%d: %s", i, char_array[i]);
