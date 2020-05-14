@@ -18,7 +18,7 @@ void init_arrays(){
 	}
 	
 	//Read in the main file into char_array
-	FILE* file = fopen("~dan/625/wiki_dump.txt", "r");
+	FILE* file = fopen("/homes/dan/625/wiki_dump.txt", "r");
 	// FILE* file = fopen("test_file.txt", "r");
 	for(i = 0; i < NUMBER_LINES; i++) {
 		if (file == NULL) {
