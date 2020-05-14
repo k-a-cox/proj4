@@ -66,11 +66,11 @@ void print_results(){
 
 main(int argc, char *argv[]){
 	if(argc != 1) return -1;
-	
+	int i;
 	char* filename = argv[0];
 	init_arrays(filename);
 	
-	for(int i = 0; i < NUMBER_CHUNKS; i++){
+	for(i = 0; i < NUMBER_CHUNKS; i++){
 		count_line(i);
 	}
 	print_results();
