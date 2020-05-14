@@ -58,9 +58,9 @@ void count_chunk(int id){
 	
 	// Critical Section
 	for(i = startLine; i < endLine; i++) {
-		if(i != 0) line_sum[i-1] -= local_line_sum[i];
-		if(i != NUMBER_LINES-1) line_sum[i] += local_line_sum[i];
-		printf("\t%d: %d\n\n", i, local_line_sum[i]);
+		if(i != 0) line_sum[i-1] -= local_line_sum[i-startLine];
+		if(i != NUMBER_LINES-1) line_sum[i] += local_line_sum[i-startLine];
+		printf("\t%d: %d\n\n", i, local_line_sum[i-startLine]);
 	}
 }
 
