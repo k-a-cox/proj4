@@ -65,18 +65,18 @@ void count_chunk(int id){
 			}
 			local_line_sum[i - startLine] = sum;
 		}
-	}
 
-	// Critical Section
-	#pragma omp critical
-    {
-		for(i = startLine; i < endLine; i++) {
-			if(i != 0) line_sum[i-1] -= local_line_sum[i-startLine];
-			if(i != NUMBER_LINES-1) line_sum[i] += local_line_sum[i-startLine];
-			// printf("\t%d: %d\n", i, local_line_sum[i-startLine]);
+		// Critical Section
+		#pragma omp critical
+		{
+			for(i = startLine; i < endLine; i++) {
+				if(i != 0) line_sum[i-1] -= local_line_sum[i-startLine];
+				if(i != NUMBER_LINES-1) line_sum[i] += local_line_sum[i-startLine];
+				// printf("\t%d: %d\n", i, local_line_sum[i-startLine]);
+			}
+
+			// printf("\n");
 		}
-
-		// printf("\n");
 	}
 }
 
