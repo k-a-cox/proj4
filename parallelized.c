@@ -2,15 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define NUMBER_CHUNKS 3
-#define NUMBER_LINES 3
+#define NUMBER_CHUNKS 1
+#define NUMBER_LINES 7
 #define MAX_LINE_SIZE 500000000 //Somehow we don't want to overflow on characters per line of main file
 
 // Contains the output
 char char_array[NUMBER_LINES][MAX_LINE_SIZE];
 int line_sum[NUMBER_LINES - 1];
 
-void init_arrays(char* filename){
+void init_arrays(){
 	int i;
 	
 	for (i = 0; i < NUMBER_LINES - 1; i++){
@@ -18,9 +18,10 @@ void init_arrays(char* filename){
 	}
 	
 	//Read in the main file into char_array
-	FILE* file = fopen(filename, "r");
+	FILE* file = fopen("~dan/625/wiki_dump.txt", "r");
+	// FILE* file = fopen("test_file.txt", "r");
 	for(i = 0; i < NUMBER_LINES; i++) {
-		fgets(char_array[i], MAX_LINE_SIZE - 1, file);
+		fgets(char_array[i], MAX_LINE_SIZE, file);
 		
 		printf("%d: %s", i, char_array[i]);
 	}
@@ -60,8 +61,10 @@ void count_chunk(int id){
 	for(i = startLine; i < endLine; i++) {
 		if(i != 0) line_sum[i-1] -= local_line_sum[i-startLine];
 		if(i != NUMBER_LINES-1) line_sum[i] += local_line_sum[i-startLine];
-		printf("\t%d: %d\n\n", i, local_line_sum[i-startLine]);
+		printf("\t%d: %d\n", i, local_line_sum[i-startLine]);
 	}
+
+	printf("\n");
 }
 
 void print_results(){
@@ -73,19 +76,13 @@ void print_results(){
 }
 
 main(int argc, char *argv[]){
-	if(argc != 2) {
-		printf("Requires a filename argument\n");
-		return -1;
-	}
 	if(NUMBER_CHUNKS > NUMBER_LINES) {
 		printf("Number of chunks must be less than number of lines\n");
 		return -1;
 	}
-	char* filename = argv[1];
 	int i;
 
-	printf("%s\n", filename);
-	init_arrays(filename);
+	init_arrays();
 	
 	for(i = 0; i < NUMBER_CHUNKS; i++){
 		count_chunk(i);
