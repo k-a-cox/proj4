@@ -71,7 +71,7 @@ main(int argc, char *argv[]){
 	init_arrays(filename);
 	
 	for(i = 0; i < NUMBER_CHUNKS; i++){
-		count_line(i);
+		count_chunk(i);
 	}
 	print_results();
 }
