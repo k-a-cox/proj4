@@ -10,11 +10,19 @@
 char char_array[NUMBER_LINES][MAX_LINE_SIZE];
 int line_sum[NUMBER_LINES - 1];
 
-void init_arrays(){
+void init_arrays(char* filename){
+	
 	for (int i = 0; i < NUMBER_LINES - 1; i++){
 		line_sum[i] = 0;
 	}
+	
 	//Read in the main file into char_array
+	FILE file = fopen(filename, "r");
+	for(int i = 0; i < NUMBER_LINES; i++) {
+		fgets(char_array[i], MAX_LINE_SIZE - 1, file);
+		
+	}
+	fclose(file);
 }
 
 void count_chunk(int id){
@@ -55,11 +63,13 @@ void print_results(){
 	}
 }
 
-main(){
-	int i;
+main(int argc, char *argv[]){
+	if(argc != 1) return -1;
 	
-	init_arrays();
-	for(i = 0; i < NUMBER_CHUNKS; i++){
+	char* filename = argv[0];
+	init_arrays(filename);
+	
+	for(int i = 0; i < NUMBER_CHUNKS; i++){
 		count_line(i);
 	}
 	print_results();
