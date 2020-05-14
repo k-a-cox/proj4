@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define NUMBER_CHUNKS 4
-#define NUMBER_LINES 16
+#define NUMBER_CHUNKS 3
+#define NUMBER_LINES 3
 #define MAX_LINE_SIZE 500000000 //Somehow we don't want to overflow on characters per line of main file
 
 // Contains the output
@@ -22,6 +22,7 @@ void init_arrays(char* filename){
 	for(i = 0; i < NUMBER_LINES; i++) {
 		fgets(char_array[i], MAX_LINE_SIZE - 1, file);
 		
+		printf("%d: %s", i, char_array[i]);
 	}
 	fclose(file);
 }
@@ -56,18 +57,26 @@ void count_chunk(int id){
 }
 
 void print_results(){
-	int i, diff = 0;
+	int i;
 	
-	for(i = 1; i < NUMBER_LINES; i++){
-		diff = line_sum[i] - line_sum[i-1];
-		printf("%d-%d: %d/n",i-1,i,diff);
+	for(i = 0; i < NUMBER_LINES - 1; i++){
+		printf("%d-%d: %d\n",i,i+1,line_sum[i]);
 	}
 }
 
 main(int argc, char *argv[]){
-	if(argc != 1) return -1;
+	if(argc != 2) {
+		printf("Requires a filename argument\n");
+		return -1;
+	}
+	if(NUMBER_CHUNKS > NUMBER_LINES) {
+		printf("Number of chunks must be less than number of lines\n");
+		return -1;
+	}
+	char* filename = argv[1];
 	int i;
-	char* filename = argv[0];
+
+	printf("%s\n", filename);
 	init_arrays(filename);
 	
 	for(i = 0; i < NUMBER_CHUNKS; i++){
