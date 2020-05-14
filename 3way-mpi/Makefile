@@ -1,8 +1,13 @@
 CC=mpicc
 
-all: mpi
+all: mpi, clean
 
 mpi: mpi.c
-	$(CC) -o mpi mpi.c
-	mpirun mpi
+	$(CC) -o mpi.out mpi.c
+	mpirun mpi.out
+
+clean: mpi.out
+	# rm *.out
+	rm mpi
+
 
