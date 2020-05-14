@@ -590,3 +590,27 @@ main(int argc, char *argv[]){
 	}
 	print_results();
 }
+
+Appendix 6: Sample script for OpenMP
+
+#!/bin/bash
+
+#SBATCH --ntasks=1
+#SBATCH --nodes=1
+SCRIPTPATH=$(dirname "$SCRIPT")
+$SCRIPTPATH/omp_1_thread
+
+Appendix 7: Sample script for Pthread
+
+#!/bin/bash
+
+#SBATCH --ntasks=1
+#SBATCH --nodes=1
+SCRIPTPATH=$(dirname "$SCRIPT")
+$SCRIPTPATH/pthread_1_thread
+
+Appendix 8: Sample script for MPI
+
+#!/bin/bash
+
+mpirun -npernode 1 mpi 
